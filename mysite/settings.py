@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zlyx^q5^r8qfdbd+jv^=-koui2peo^t7#f7h4*x3d#+-5=)ii&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'user.NewUser'
 # Application definition
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'user',
     'rest_framework',
     'job',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,16 @@ TEMPLATES = [
         },
     },
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Allows any frontend to access the API (Not recommended for production)
+
+
+# Allow all methods (GET, POST, PUT, DELETE, etc.)
+CORS_ALLOW_METHODS = ["*"]
+
+# Allow all headers
+CORS_ALLOW_HEADERS = ["*"]
+CORS_ALLOW_CREDENTIALS = True
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
