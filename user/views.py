@@ -22,7 +22,7 @@ class LoginView(APIView):
         password = serializer.validated_data.get('password').strip()
         
 
-        user = authenticate(email=email ,password=password)
+        user = authenticate(username=email ,password=password)
         if not user:
             return Response({'error':'failed to authenticate the user'},status=status.HTTP_400_BAD_REQUEST)
         else:
