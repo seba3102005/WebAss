@@ -11,9 +11,9 @@ class NewUserManager(BaseUserManager):
         if not email:
             raise ValueError('You must provide an email address')
         norm_email = self.normalize_email(email)
-        kwargs.setdefault('is_active', True)
+     
 
-        user = self.model(email=norm_email,gender=gender,phoneNo=phoneNo,username=username,**kwargs)
+        user = self.model(email=norm_email,gender=gender,phoneNo=phoneNo,username=username,is_active=True,**kwargs)
         user.set_password(password)
         user.save()
         return user
@@ -30,7 +30,7 @@ class NewUserManager(BaseUserManager):
             raise ValueError(
                 'Superuser must be assigned to is_superuser=True.')
         
-        return self.create_user(email=email,username=username,password=password,phoneNo=phoneNo,gender=gender ,**kwargs)
+        return self.create_user(email=email,username=username,password=password,phoneNo=phoneNo,gender=gender ,is_active=True,**kwargs)
 
 
 class NewUser(AbstractBaseUser,PermissionsMixin):
