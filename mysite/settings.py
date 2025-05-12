@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zlyx^q5^r8qfdbd+jv^=-koui2peo^t7#f7h4*x3d#+-5=)ii&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -119,7 +119,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
-
+## to authenticate with the email instead of the username
 AUTHENTICATION_BACKENDS = [
     'user.authentication.EmailBackend', 
     'django.contrib.auth.backends.ModelBackend',  

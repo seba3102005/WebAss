@@ -25,33 +25,33 @@ class RegisterSerializer(serializers.ModelSerializer):
 class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Education
-        fields = '__all__'
+        fields = ['institution','graduation_year']
 
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Languages
-        fields = '__all__'
+        fields = ['name']
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = project
-        fields = '__all__'
+        fields = ['name','image']
 
 
 class CertifiactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Certification
-        fields = '__all__'
+        fields = ['name','organization','year']
 
 class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkExperience
-        fields = '__all__'
+        fields = ['name','descriprion']
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skills
-        fields = '__all__'
+        fields = ['name']
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -65,5 +65,5 @@ class AccountSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = user
-        fields = ['about','type','title','description','hourly_rate','hours_week','video','my_education' ,'my_languages','my_projects','my_certifications','my_experience', 'my_skills']
+        fields = ['about','title','description','hourly_rate','hours_week','video','my_education' ,'my_languages','my_projects','my_certifications','my_experience', 'my_skills']
      

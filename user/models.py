@@ -34,7 +34,7 @@ class NewUserManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser,PermissionsMixin):
     choices = [('male','male'),('female','female')]
-    type_choices = [('job_seeker','job_seeker'),('company','company')]
+
     username = models.CharField(max_length=100)
     email = models.EmailField(max_length=100,unique=True)
     gender = models.CharField(max_length=10,choices=choices)
@@ -43,8 +43,7 @@ class NewUser(AbstractBaseUser,PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(('about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
-    type = models.CharField(max_length=50,choices=type_choices,default='job_seeker')
+    is_active = models.BooleanField(default=True)   # by default is false when i want to implement that user can activate it account
     title = models.CharField(max_length=100,default='Title')
     description = models.TextField(max_length=500,default='Description')
     hourly_rate = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(20)],default='1')

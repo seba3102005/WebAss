@@ -9,6 +9,7 @@ from rest_framework.generics import CreateAPIView,UpdateAPIView,ListAPIView
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from user.models import Education,Languages,project,Certification,WorkExperience,Skills
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.exceptions import ValidationError
 
 user = get_user_model()
 # Create your views here.
@@ -56,7 +57,7 @@ class AddSKill(ModelViewSet):
 # override the function that gets the serializer class
     def get_serializer_class(self):
         keyword = self.kwargs.get('keyword')
-        print(keyword)
+        
         if keyword == 'education':
             return EducationSerializer
         elif keyword == 'language':
@@ -67,7 +68,10 @@ class AddSKill(ModelViewSet):
             return CertifiactionSerializer
         elif keyword == 'experience':
             return ExperienceSerializer
-        return SkillSerializer 
+        elif keyword == 'skill':
+            return SkillSerializer
+        else:
+            raise ValidationError({'error': 'The keyword is not valid'})
 
 
 # overrides the function that gets the quesry set of the model view set
@@ -84,8 +88,18 @@ class AddSKill(ModelViewSet):
             return Certification.objects.all()
         elif keyword == 'experience':
             return WorkExperience.objects.all()
-        return Skills.objects.all() 
-
+        elif keyword == 'skill':
+            return Skills.objects.all()
+        else:
+            raise ValidationError({'error': 'The keyword is not valid'})
+         
     
     def perform_create(self, serializer):
         return serializer.save(user = self.request.user)
+    
+    def create(self, request, *args, **kwargs):
+        keyword = self.kwargs.get('keyword')
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response({"created":f'you {keyword} is added successfully'}, status=status.HTTP_201_CREATED)
