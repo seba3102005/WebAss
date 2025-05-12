@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,6 +87,7 @@ TEMPLATES = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allows any frontend to access the API (Not recommended for production)
+
 
 
 # Allow all methods (GET, POST, PUT, DELETE, etc.)
