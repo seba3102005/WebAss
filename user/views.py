@@ -22,9 +22,15 @@ class LoginView(APIView):
         password = serializer.validated_data.get('password').strip()
         
 
-        user = authenticate(request,username=email ,password=password)
-        if not user:
-            return Response({'error':'failed to authenticate the user'},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = authenticate(username=email, password=password)
+        except Exception as e:
+            
+            return Response({'error': 'Authentication error', 'details': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if user is None:
+           
+            return Response({'error': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             refresh = RefreshToken.for_user(user)
             return Response({"user":{"id":user.id,"username":user.username,"email":user.email,"phoneNo":user.phoneNo,"gender":user.gender},"refresh":str(refresh),"access":str(refresh.access_token)},status=status.HTTP_200_OK)
