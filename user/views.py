@@ -43,7 +43,7 @@ class RegisterView(CreateAPIView):
     queryset = user.objects.all()
 
 
-class AccountView(ListAPIView):
+class AccountView(RetrieveAPIView):
     queryset = user.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = AccountSerializer
