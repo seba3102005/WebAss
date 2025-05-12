@@ -33,8 +33,11 @@ AUTH_USER_MODEL = 'user.NewUser'
 # to inc the duration of the access and refresh tokens
 from datetime import timedelta
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(weeks=1),  
-    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=4),  
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=2),  # Extend access token to 1 hour
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),  # Allow refresh for 7 days
+    "ROTATE_REFRESH_TOKENS": True,  # Issue a new refresh token on each use
+    "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Ensure token is passed as "Bearer <token>"
 }
 
 REST_FRAMEWORK = {
@@ -59,7 +62,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -88,7 +91,7 @@ TEMPLATES = [
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allows any frontend to access the API (Not recommended for production)
 
-
+ROOT_URLCONF = 'mysite.urls'
 
 # Allow all methods (GET, POST, PUT, DELETE, etc.)
 CORS_ALLOW_METHODS = ["*"]
