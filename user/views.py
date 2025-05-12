@@ -23,17 +23,17 @@ class LoginView(APIView):
         
 
         try:
-            user = authenticate(username=email, password=password)
+            user_data = authenticate(username=email, password=password)
         except Exception as e:
             
             return Response({'error': 'Authentication error', 'details': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        if user is None:
+        if user_data is None:
            
             return Response({'error': 'Invalid email or password'}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            refresh = RefreshToken.for_user(user)
-            return Response({"user":{"id":user.id,"username":user.username,"email":user.email,"phoneNo":user.phoneNo,"gender":user.gender},"refresh":str(refresh),"access":str(refresh.access_token)},status=status.HTTP_200_OK)
+            refresh = RefreshToken.for_user(user_data)
+            return Response({"user":{"id":user_data.id,"username":user_data.username,"email":user_data.email,"phoneNo":user_data.phoneNo,"gender":user_data.gender},"refresh":str(refresh),"access":str(refresh.access_token)},status=status.HTTP_200_OK)
 
 
 class RegisterView(CreateAPIView):
