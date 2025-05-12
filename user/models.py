@@ -11,6 +11,7 @@ class NewUserManager(BaseUserManager):
         if not email:
             raise ValueError('You must provide an email address')
         norm_email = self.normalize_email(email)
+        kwargs.setdefault('is_active', True)
 
         user = self.model(email=norm_email,gender=gender,phoneNo=phoneNo,username=username,**kwargs)
         user.set_password(password)
