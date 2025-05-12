@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,get_user_model
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.generics import CreateAPIView,UpdateAPIView,ListAPIView
+from rest_framework.generics import CreateAPIView,UpdateAPIView,ListAPIView,RetrieveAPIView
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from user.models import Education,Languages,project,Certification,WorkExperience,Skills
 from rest_framework.viewsets import ModelViewSet
